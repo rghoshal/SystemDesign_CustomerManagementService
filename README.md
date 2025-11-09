@@ -121,11 +121,12 @@ The React frontend expects a JSON response containing the array under the custom
 
 Endpoints (Examples)
 
-Action,Method,URL,Example Payload (POST/PUT)
-Create Customer,POST,/api/customers,"{""name"": ""Jane Doe"", ""age"": 30, ""address"": ""123 Main St"", ""aadhar_id"": ""123456789012""}"
-View All,GET,/api/customers/all,(No payload)
-Search by ID,GET,/api/customers/search?type=aadhar&value=123456789012,(No payload)
-Delete Customer,DELETE,/api/customers/1000000001,(No payload)
-Add Product,POST,/api/products,"{""customer_id"": 1000000001, ""product_name"": ""Laptop"", ""quantity"": 1, ""price"": 1200.00}"
-cd [your-project-folder]
+### Endpoints (Examples)
 
+| Action | Method | URL | Example Payload (POST/PUT) |
+| :--- | :--- | :--- | :--- |
+| **Create Customer** | `POST` | `/api/customers` | `{"name": "Jane Doe", "age": 30, "address": "123 Main St", "aadhar_id": "123456789012"}` |
+| **View All** | `GET` | `/api/customers/all` | (No payload) |
+| **Search by ID** | `GET` | `/api/customers/search?type=aadhar&value=123456789012` | (No payload) |
+| **Delete Customer** | `DELETE` | `/api/customers/1000000001` | (No payload) |
+| **Add Product** | `POST` | `/api/products` | `{"customer_id": 1000000001, "product_name": "Laptop", "quantity": 1, "price": 1200.00}` |
