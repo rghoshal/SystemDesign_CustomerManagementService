@@ -1,0 +1,51 @@
+services:
+  mariadb:
+    image: mariadb:11.2
+    container_name: customer_mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: Putishwar2345@
+      MYSQL_DATABASE: customerDB
+      MYSQL_USER: rghoshal
+      MYSQL_PASSWORD: Putishwar2345@
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./backend/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  memcached:
+    image: memcached:1.6-alpine
+    container_name: customer_memcached
+    ports:
+      - "11211:11211"
+    command: memcached -m 64
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend
+    container_name: customer_backend
+    environment:
+      DB_HOST: customer_mariadb
+      DB_PORT: 3306
+      DB_USER: rghoshal
+      DB_PASSWORD: Putishwar2345@
+      DB_NAME: customerDB
+      MEMCACHED_HOST: memcached:11211
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      mariadb:
+        condition: service_started
+      memcached:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  mariadb_data:
